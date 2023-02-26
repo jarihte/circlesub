@@ -3,10 +3,10 @@
 This Next.js project is a Twitch Solana tipping app using Solana Pay QR codes.
 
 This project demonstrates the usage of:
-* Solana Pay QR Codes with SOL
+* Solana Pay QR Codes with Solana
 * Helius Webhook for Solana Pay transactions rather than using polling
-* Twitch tipping integration
-* Socket.io and Next.js integration
+* Twitch Solana tipping integration
+* Socket.io and Next.js integration with Helius Webhook
 
 This project was created for the [Solana Grizzython Hackathon](https://solana.com/grizzlython) in 2023
 
