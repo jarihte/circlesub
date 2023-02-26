@@ -94,7 +94,7 @@ export default function External(props: Props) {
               }}
             />
             <div style={{ color: 'red' }}>
-              { errors?.donate_amount && 'SOL amount must be greater than 0.0001' }
+              { errors?.tip && 'SOL amount must be greater than 0.0001' }
             </div>
             <input {...register('username')} value={username} type="hidden" />
           </form>
