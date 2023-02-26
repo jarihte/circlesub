@@ -22,9 +22,9 @@ function Hero() {
   });
 
   return (
-    <div className="hero my-5 text-center" data-testid="hero" style={{ fontSize: '16px' }}>
+    <div className="hero my-5 text-center" data-testid="hero">
       <img src="/circlesub.svg" alt="Logo" />
-      <p className="lead" data-testid="hero-lead">
+      <h1 className="lead" data-testid="hero-lead" style={{ fontSize: '24px' }}>
         Tip your favorite
         {' '}
         Twitch
@@ -32,7 +32,7 @@ function Hero() {
         <img src="/glitch.svg" height="40px" alt="Twitch" style={{ marginLeft: '5px' }} />
         {' '}
         influencers
-      </p>
+      </h1>
       <div style={{ marginTop: '50px' }}>
         <video controls ref={videoRef} className="video-js" />
       </div>
