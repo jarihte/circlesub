@@ -8,7 +8,7 @@ This project demonstrates the usage of:
 * Twitch tipping integration
 * Socket.io and Next.js integration
 
-This project was created for the Solana Grizzython Hackathon in 2023
+This project was created for the [Solana Grizzython Hackathon](https://solana.com/grizzlython) in 2023
 
 This project is live at [https://circlesub.com](https://circlesub.com)
 
