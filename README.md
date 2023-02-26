@@ -12,6 +12,8 @@ This project was created for the [Solana Grizzython Hackathon](https://solana.co
 
 This project is live at [https://circlesub.com](https://circlesub.com)
 
+A live user to tip is [komdodx](https://circlesub.com/tip/komdodx)
+
 ### Required ENV Vars:
 * NEXTAUTH_SECRET={your own uuid v4}
 * TWITCH_CLIENT_ID={Twitch Client ID}
