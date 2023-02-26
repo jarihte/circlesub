@@ -12,7 +12,7 @@ function SubLayout({ children }: ILayout) {
   return (
     <>
       <Head>
-        <title>CircleSub - SOL Twitch Tips</title>
+        <title>CircleSub - Solana Twitch Tips</title>
         <link rel="shortcut icon" href="/favicon.png" />
         <meta name="description" content="Tip your favorite Twitch streamers!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
