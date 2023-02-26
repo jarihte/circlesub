@@ -7,12 +7,10 @@ import { createQR, encodeURL } from '@solana/pay';
 import io, { Socket } from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { useSession } from 'next-auth/react';
-import BigNumber from 'bignumber.js';
+import { Keypair } from '@solana/web3.js';
 
 type TxData = {
-  to: string;
-  from: string;
-  amount: number;
+  reference: string;
 };
 
 type Props = {
@@ -39,8 +37,9 @@ export default function External(props: Props) {
 
   const onSubmitDonate = async (data: FieldValues) => {
     try {
+      const reference = new Keypair().publicKey.toBase58();
       const qrLink = createQR(encodeURL({
-        link: new URL(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/qr?tip=${data.tip}&name=${data.username}`),
+        link: new URL(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/qr?tip=${data.tip}&name=${data.username}&reference=${reference}`),
       }));
 
       const pngRaw = await qrLink.getRawData();
@@ -48,9 +47,10 @@ export default function External(props: Props) {
       if (pngRaw && msgSocket) {
         const png = URL.createObjectURL(pngRaw);
         setQR(png);
-        const amount = new BigNumber(data.tip).multipliedBy(1000000000).toNumber();
         msgSocket.on('transfer', async (txData: TxData) => {
-          if (txData.to === solAddress && txData.amount === amount) {
+          console.log('txData', txData);
+          console.log('reference', reference);
+          if (txData.reference === reference) {
             await fetch(`/api/alert?name=${username}&tip=${data.tip}`);
             const donor = (session?.user) ? session.user.name : 'visitor';
             const msg = { message: `Thanks ${donor} for your tip of ${data.tip} SOL`, room: username };

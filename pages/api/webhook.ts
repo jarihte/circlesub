@@ -4,6 +4,10 @@ import type { Socket as NetSocket } from 'net';
 import type { Server as IOServer } from 'socket.io';
 import type { Server as HTTPServer } from 'http';
 
+type TxData = {
+  reference: string;
+};
+
 interface SocketServer extends HTTPServer {
   io: IOServer | undefined
 }
@@ -58,14 +62,13 @@ async function post(req: NextApiRequest, res: NextApiResponseWithSocket) {
   const json : TransferTransaction[] = body;
   await fetch(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/socket`);
 
+  console.log('json', json);
+
   for (const tx of json) {
-    for (const transfer of tx.nativeTransfers) {
-      const { amount } = transfer;
-      const from = transfer.fromUserAccount;
-      const to = transfer.toUserAccount;
-      const txMsg = { to, from, amount };
-      res?.socket?.server?.io?.emit('transfer', txMsg);
-    }
+    const txData: TxData = {
+      reference: tx.signature,
+    };
+    res?.socket?.server?.io?.emit('transfer', txData);
   }
 
   return res.status(200).json({ success: true });

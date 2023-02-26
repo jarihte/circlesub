@@ -29,6 +29,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
   const {
     tip,
     name,
+    reference,
   } = req.query;
 
   // get the receiver from the database by name
@@ -39,6 +40,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
   const transaction = await createTransfer(connection, sender, {
     recipient,
     amount: new BigNumber(tip as string),
+    reference: new PublicKey(reference as string),
   }, { commitment: 'confirmed' });
 
   // Serialize and return the unsigned transaction.
