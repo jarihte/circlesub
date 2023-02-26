@@ -1,3 +1,5 @@
+![CircleSub Logo](https://circlesub.com/circlesub.png)
+
 ## CircleSub
 
 This Next.js project is a Twitch Solana tipping app using Solana Pay QR codes.
