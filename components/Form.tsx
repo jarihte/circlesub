@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { createQR, encodeURL } from '@solana/pay';
 import io, { Socket } from 'socket.io-client';
@@ -33,6 +35,7 @@ export default function External(props: Props) {
   const [image, setImage] = useState('');
   const [qr, setQR] = useState('');
   const [solAddress, setSolAddress] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onSubmitDonate = async (data: FieldValues) => {
     try {
@@ -53,6 +56,9 @@ export default function External(props: Props) {
             const msg = { message: `Thanks ${donor} for your tip of ${data.tip} SOL`, room: username };
             msgSocket.emit('alert', msg);
             setQR('');
+            if (inputRef.current) {
+              inputRef.current.value = '';
+            }
           }
         });
       }
@@ -84,7 +90,7 @@ export default function External(props: Props) {
         <h3 style={{ marginTop: '30px' }}>Solana Tip</h3>
         <div style={{ marginTop: '20px' }}>
           <form onSubmit={handleSubmit(onSubmitDonate)}>
-            <input {...register('tip', { min: '0.0001', required: true })} type="text" placeholder="SOL Amount" style={{ borderRadius: '5px' }} />
+            <input {...register('tip', { min: '0.0001', required: true })} ref={inputRef} type="text" placeholder="SOL Amount" style={{ borderRadius: '5px' }} />
             <input
               type="submit"
               height="20px"

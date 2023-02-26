@@ -49,7 +49,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
 
   // Convert the serialized transaction to base64.
   const base64Transaction = serializedTransaction.toString('base64');
-  const message = 'Thank you for your tip!';
+  const message = 'Thanks for the tip!';
 
   // Return the base64 encoded transaction and the message.
   res.status(200).send({ transaction: base64Transaction, message });
