@@ -1,12 +1,9 @@
 import React from 'react';
 import Alert from '../../components/Alert';
-import App from '../_app';
+import { NextPageWithLayout } from '../_app';
 
-function withNoLayout(WrappedComponent: React.ElementType) {
-  // eslint-disable-next-line func-names
-  return function () {
-    return <App Component={WrappedComponent} pageProps={{ session: null }} blank />;
-  };
-}
+const component : NextPageWithLayout = () => <Alert />;
 
-export default withNoLayout(Alert);
+component.getLayout = (page) => page;
+
+export default component;

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import { NextPageWithLayout } from './_app';
+import Layout from '../components/Layout';
 
-export default function External() {
+const component : NextPageWithLayout = () => {
   const router = useRouter();
 
   const { query } = router;
@@ -21,4 +23,10 @@ export default function External() {
       </div>
     </div>
   );
-}
+};
+
+component.getLayout = (page) => (
+  <Layout props={page.props}>{page}</Layout>
+);
+
+export default component;

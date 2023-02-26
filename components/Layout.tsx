@@ -1,37 +1,47 @@
-import React from 'react';
-import { Container } from 'reactstrap';
-import Head from 'next/head';
-import NavBar from './NavBar';
-import Footer from './Footer';
+/* eslint-disable react/prop-types */
+/* eslint-disable max-len */
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { ReactElement, ReactNode, useMemo } from 'react';
+import { SessionProvider, SessionProviderProps } from 'next-auth/react';
+import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
+import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { NextPage } from 'next/types';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import SubLayout from './SubLayout';
 
-type ILayout = {
-  children: React.ReactNode;
-  blank: boolean;
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
 };
 
-function Layout({ children, blank }: ILayout) {
+type AppPropsWithLayout = {
+  children: ReactNode;
+  props: {
+    session: SessionProviderProps['session'];
+  };
+};
+
+export default function Layout({ children, props }: AppPropsWithLayout) {
+  const { session } = props;
+
+  // You can also provide a custom RPC endpoint.
+  const endpoint = process.env.NEXT_PUBLIC_RPC as string;
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+    ],
+    [endpoint],
+  );
+
   return (
-    <>
-      <Head>
-        <title>CircleSub - SOL Twitch Tips</title>
-        <link rel="shortcut icon" href="/favicon.png" />
-        <meta name="description" content="Tip your favorite Twitch streamers!" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <main id="app" className="d-flex flex-column h-100" data-testid="layout">
-        { !blank && (
-          <>
-            <NavBar />
-            <Container className="flex-grow-1 mt-5">{children}</Container>
-            <Footer />
-          </>
-        )}
-        { blank && (
-          <Container className="flex-grow-1 mt-5">{children}</Container>
-        )}
-      </main>
-    </>
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <SessionProvider session={session}>
+          <SubLayout>
+            {children}
+          </SubLayout>
+        </SessionProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 }
-
-export default Layout;

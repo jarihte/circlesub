@@ -2,8 +2,10 @@ import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useWallet } from '@solana/wallet-adapter-react';
 import Setup from '../components/Setup';
+import { NextPageWithLayout } from './_app';
+import Layout from '../components/Layout';
 
-export default function External() {
+const component : NextPageWithLayout = () => {
   const { status } = useSession();
   const { publicKey } = useWallet();
 
@@ -37,4 +39,10 @@ export default function External() {
   }
 
   return null;
-}
+};
+
+component.getLayout = (page) => (
+  <Layout props={page.props}>{page}</Layout>
+);
+
+export default component;

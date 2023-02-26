@@ -4,8 +4,10 @@ import dynamic from 'next/dynamic';
 import { Row, Col } from 'reactstrap';
 import { Typography } from '@mui/material';
 import Form from '../../components/Form';
+import { NextPageWithLayout } from '../_app';
+import Layout from '../../components/Layout';
 
-export default function External() {
+const component : NextPageWithLayout = () => {
   const router = useRouter();
   const username = router.query.username?.toString();
 
@@ -38,4 +40,10 @@ export default function External() {
     );
   }
   return null;
-}
+};
+
+component.getLayout = (page) => (
+  <Layout props={page.props}>{page}</Layout>
+);
+
+export default component;

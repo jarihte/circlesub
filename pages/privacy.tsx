@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import Layout from '../components/Layout';
 import privacy from '../markdown/privacy';
+import { NextPageWithLayout } from './_app';
 
-export default function External() {
-  return (
-    <div className="mb-5" data-testid="external">
-      <div data-testid="external-text">
-        <p className="lead">
-          <ReactMarkdown>
-            {privacy}
-          </ReactMarkdown>
-        </p>
-      </div>
+const component : NextPageWithLayout = () => (
+  <div className="mb-5" data-testid="external">
+    <div data-testid="external-text">
+      <p className="lead">
+        <ReactMarkdown>
+          {privacy}
+        </ReactMarkdown>
+      </p>
     </div>
-  );
-}
+  </div>
+);
+
+component.getLayout = (page) => (
+  <Layout props={page.props}>{page}</Layout>
+);
+
+export default component;
