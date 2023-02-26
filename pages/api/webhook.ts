@@ -3,10 +3,9 @@ import { NextApiRequest, NextApiResponse } from 'next/types';
 import type { Socket as NetSocket } from 'net';
 import type { Server as IOServer } from 'socket.io';
 import type { Server as HTTPServer } from 'http';
-import util from 'util';
 
 type TxData = {
-  reference: string;
+  accounts: string[];
 };
 
 interface SocketServer extends HTTPServer {
@@ -63,11 +62,9 @@ async function post(req: NextApiRequest, res: NextApiResponseWithSocket) {
   const json : TransferTransaction[] = body;
   await fetch(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/socket`);
 
-  console.log(util.inspect(json, { showHidden: false, depth: null, colors: true }));
-
   for (const tx of json) {
     const txData: TxData = {
-      reference: tx.signature,
+      accounts: tx.instructions[0].accounts,
     };
     res?.socket?.server?.io?.emit('transfer', txData);
   }

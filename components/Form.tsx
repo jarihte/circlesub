@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 import { Keypair } from '@solana/web3.js';
 
 type TxData = {
-  reference: string;
+  accounts: string[];
 };
 
 type Props = {
@@ -38,7 +38,6 @@ export default function External(props: Props) {
   const onSubmitDonate = async (data: FieldValues) => {
     try {
       const reference = new Keypair().publicKey.toBase58();
-      console.log('reference', reference);
       const qrLink = createQR(encodeURL({
         link: new URL(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/qr?tip=${data.tip}&name=${data.username}&reference=${reference}`),
       }));
@@ -49,9 +48,7 @@ export default function External(props: Props) {
         const png = URL.createObjectURL(pngRaw);
         setQR(png);
         msgSocket.on('transfer', async (txData: TxData) => {
-          console.log('txData', txData);
-          console.log('reference', reference);
-          if (txData.reference === reference) {
+          if (txData.accounts.includes(reference)) {
             await fetch(`/api/alert?name=${username}&tip=${data.tip}`);
             const donor = (session?.user) ? session.user.name : 'visitor';
             const msg = { message: `Thanks ${donor} for your tip of ${data.tip} SOL`, room: username };
