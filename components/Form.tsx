@@ -35,7 +35,7 @@ export default function External(props: Props) {
   const [image, setImage] = useState('');
   const [qr, setQR] = useState('');
   const [solAddress, setSolAddress] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onSubmitDonate = async (data: FieldValues) => {
     try {
@@ -83,6 +83,8 @@ export default function External(props: Props) {
     });
   }, [fetchMyAPI]);
 
+  const { ref, ...rest } = register('tip', { min: '0.0001', required: true });
+
   if (image && solAddress) {
     return (
       <>
@@ -90,7 +92,18 @@ export default function External(props: Props) {
         <h3 style={{ marginTop: '30px' }}>Solana Tip</h3>
         <div style={{ marginTop: '20px' }}>
           <form onSubmit={handleSubmit(onSubmitDonate)}>
-            <input {...register('tip', { min: '0.0001', required: true })} ref={inputRef} type="text" placeholder="SOL Amount" style={{ borderRadius: '5px' }} />
+            <input
+              {...rest}
+              ref={(e) => {
+                ref(e);
+                if (e) {
+                  inputRef.current = e;
+                }
+              }}
+              type="text"
+              placeholder="SOL Amount"
+              style={{ borderRadius: '5px' }}
+            />
             <input
               type="submit"
               height="20px"
@@ -140,7 +153,6 @@ export default function External(props: Props) {
               title="transak"
               height="650"
               src={transakURL}
-              frameBorder="no"
               allowFullScreen
               style={{
                 display: 'block', width: '100%', maxHeight: '650px', maxWidth: '500px',
