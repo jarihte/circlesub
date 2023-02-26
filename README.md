@@ -8,6 +8,8 @@ This project demonstrates the usage of:
 * Twitch tipping integration
 * Socket.io and Next.js integration
 
+This project was created for the Solana Grizzython Hackathon in 2023
+
 ### Required ENV Vars:
 * NEXTAUTH_SECRET={your own uuid v4}
 * TWITCH_CLIENT_ID={Twitch Client ID}
