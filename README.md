@@ -8,7 +8,7 @@ This project demonstrates the usage of:
 * Twitch Solana tipping integration
 * Socket.io and Next.js integration with Helius Webhook
 
-This project was created for the [Solana Grizzython Hackathon](https://solana.com/grizzlython) in 2023
+This project was created for the [Solana Riptide Hackathon](https://solana.com/riptide)
 
 This project is live at [https://circlesub.com](https://circlesub.com)
 
