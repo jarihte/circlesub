@@ -1,26 +1,24 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable max-len */
-/* eslint-disable react/prop-types */
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import Link from 'next/link';
 import React from 'react';
-import { useRouter } from 'next/router';
 
 import NavBarItem from './NavBarItem';
 
+type PageLinkProps = {
+  href: string;
+  children: React.ReactNode;
+  className: string | undefined;
+  icon: IconProp | null;
+  tabIndex: number | undefined;
+  testId: string;
+};
+
 function PageLink({
   children, href, className, icon, tabIndex, testId,
-}) {
-  const router = useRouter();
-  const { ref } = router.query;
-  let url;
-  if (ref) {
-    url = `${href}?ref=${ref}`;
-  } else {
-    url = href;
-  }
+}: PageLinkProps) {
   return (
-    <Link href={url}>
-      <NavBarItem href={href} className={className} icon={icon} tabIndex={tabIndex} testId={testId}>
+    <Link href={href}>
+      <NavBarItem className={className} icon={icon} tabIndex={tabIndex} testId={testId}>
         {children}
       </NavBarItem>
     </Link>

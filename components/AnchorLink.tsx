@@ -7,9 +7,9 @@ import NavBarItem from './NavBarItem';
 
 interface IAnchorLink {
   children: React.ReactNode;
-  className: string;
-  icon: IconProp;
-  tabIndex: number;
+  className: string | undefined;
+  icon: IconProp | null;
+  tabIndex: number | undefined;
   testId: string;
   onClick: () => void;
 }

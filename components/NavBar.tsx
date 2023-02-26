@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 
 import {
@@ -32,18 +33,18 @@ function NavBar() {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar data-testid="navbar-items">
               <NavItem style={{ paddingTop: '5px' }}>
-                <PageLink href="https://circlesub.com" className="nav-link" testId="navbar-home" icon={undefined} tabIndex={undefined}>
+                <PageLink href="https://circlesub.com" className="nav-link" testId="navbar-home" icon={null} tabIndex={undefined}>
                   <img src="/circlesub-icon.png" alt="logo" height="50px" />
                 </PageLink>
               </NavItem>
               <NavItem style={{ paddingTop: '18px' }}>
-                <PageLink href="/" className="nav-link" testId="navbar-home" icon={undefined} tabIndex={undefined}>
+                <PageLink href="/" className="nav-link" testId="navbar-home" icon={null} tabIndex={undefined}>
                   Home
                 </PageLink>
               </NavItem>
-              {status === 'authenticated' && (
+              {status === 'authenticated' && session && (
                 <NavItem style={{ paddingTop: '18px' }}>
-                  <PageLink href="/setup" className="nav-link" testId="navbar-external" icon={undefined} tabIndex={undefined}>
+                  <PageLink href="/setup" className="nav-link" testId="navbar-external" icon={null} tabIndex={undefined}>
                     Setup
                   </PageLink>
                 </NavItem>
@@ -53,8 +54,7 @@ function NavBar() {
               {status !== 'authenticated' && (
                 <NavItem id="qsLoginBtn">
                   <AnchorLink
-                    href=""
-                    icon=""
+                    icon={null}
                     className="btn btn-secondary btn-margin"
                     tabIndex={0}
                     testId="navbar-login-desktop"
@@ -71,11 +71,11 @@ function NavBar() {
                   </AnchorLink>
                 </NavItem>
               )}
-              {status === 'authenticated' && (
+              {status === 'authenticated' && session && (
                 <UncontrolledDropdown nav inNavbar data-testid="navbar-menu-desktop">
                   <DropdownToggle nav caret id="profileDropDown">
                     <img
-                      src={session.user.image}
+                      src={session.user?.image || ''}
                       alt="Profile"
                       className="nav-user-profile rounded-circle"
                       width="50"
@@ -85,20 +85,20 @@ function NavBar() {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem header data-testid="navbar-user-desktop">
-                      {session.user.name}
+                      {session.user?.name}
                     </DropdownItem>
                     <DropdownItem header>
-                      <PageLink href="/setup" className="" testId="test" icon={undefined} tabIndex={undefined}>
+                      <PageLink href="/setup" className="" testId="test" icon={null} tabIndex={undefined}>
                         Setup
                       </PageLink>
                     </DropdownItem>
                     <DropdownItem header>
-                      <PageLink href={`/tip/${session.user.name}`} className="" testId="test" icon={undefined} tabIndex={undefined}>
+                      <PageLink href={`/tip/${session.user?.name}`} className="" testId="test" icon={null} tabIndex={undefined}>
                         Tip Page
                       </PageLink>
                     </DropdownItem>
                     <DropdownItem id="qsLogoutBtn">
-                      <AnchorLink href="" icon="power-off" testId="navbar-logout-desktop" onClick={() => signOut()} className={undefined} tabIndex={undefined}>
+                      <AnchorLink icon="power-off" testId="navbar-logout-desktop" onClick={() => signOut()} className={undefined} tabIndex={undefined}>
                         Log out
                       </AnchorLink>
                     </DropdownItem>
@@ -109,8 +109,7 @@ function NavBar() {
             {status !== 'authenticated' && (
               <Nav className="d-md-none" navbar>
                 <AnchorLink
-                  href=""
-                  icon=""
+                  icon={null}
                   className="btn btn-secondary btn-block"
                   tabIndex={0}
                   testId="navbar-login-mobile"
@@ -127,7 +126,7 @@ function NavBar() {
                 </AnchorLink>
               </Nav>
             )}
-            {status === 'authenticated' && (
+            {status === 'authenticated' && session && (
               <Nav
                 id="nav-mobile"
                 className="d-md-none justify-content-between"
@@ -137,7 +136,7 @@ function NavBar() {
                 <NavItem>
                   <span className="user-info">
                     <img
-                      src={session.user.image}
+                      src={session.user?.image || ''}
                       alt="Profile"
                       className="nav-user-profile d-inline-block rounded-circle mr-3"
                       width="50"
@@ -146,25 +145,24 @@ function NavBar() {
                     />
                     <h6 className="d-inline-block" data-testid="navbar-user-mobile">
                       <div>
-                        {session.user.name}
+                        {session.user?.name}
                       </div>
                     </h6>
                   </span>
                 </NavItem>
                 <NavItem>
-                  <PageLink href="/setup" className="nav-link" testId="navbar-external" icon={undefined} tabIndex={undefined}>
+                  <PageLink href="/setup" className="nav-link" testId="navbar-external" icon={null} tabIndex={undefined}>
                     Setup
                   </PageLink>
                 </NavItem>
                 <NavItem>
-                  <PageLink href={`/tip/${session.user.name}`} className="nav-link" testId="navbar-external" icon={undefined} tabIndex={undefined}>
+                  <PageLink href={`/tip/${session.user?.name}`} className="nav-link" testId="navbar-external" icon={null} tabIndex={undefined}>
                     Tip Page
                   </PageLink>
                 </NavItem>
                 <NavItem id="qsLogoutBtn">
                   <AnchorLink
-                    href=""
-                    tabIndex=""
+                    tabIndex={undefined}
                     className="btn btn-link p-0"
                     icon="power-off"
                     testId="navbar-logout-mobile"

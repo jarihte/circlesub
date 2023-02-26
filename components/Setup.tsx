@@ -1,7 +1,3 @@
-/* eslint-disable no-new */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-mixed-operators */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import BeatLoader from 'react-spinners/BeatLoader';
@@ -9,8 +5,13 @@ import {
   WalletModalProvider,
   WalletMultiButton,
 } from '@solana/wallet-adapter-react-ui';
+import { PublicKey } from '@solana/web3.js';
 
-export default function External(props) {
+type ExternalProps = {
+  publicKey: PublicKey | null;
+};
+
+export default function External(props: ExternalProps) {
   const { publicKey } = props;
 
   const [hasAddress, setHasAddress] = useState(false);

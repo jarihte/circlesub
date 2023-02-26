@@ -6,9 +6,9 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 interface INavBarItem {
   children: React.ReactNode;
-  className: string;
-  icon: IconProp;
-  tabIndex: number;
+  className: string | undefined;
+  icon: IconProp | null;
+  tabIndex: number | undefined;
   testId: string;
 }
 
