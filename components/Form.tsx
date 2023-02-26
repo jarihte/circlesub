@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/router';
 import { FieldValues, useForm } from 'react-hook-form';
 import { createQR, encodeURL } from '@solana/pay';
 import io, { Socket } from 'socket.io-client';
@@ -17,6 +16,8 @@ type TxData = {
 type Props = {
   username: string;
 };
+
+const transakURL = `https://global.transak.com?apiKey=${process.env.NEXT_PUBLIC_TRANSAK}&cryptoCurrencyCode=SOL&network=solana&themeColor=9146FF&exchangeScreenTitle=Buy%20SOL%20-%20use%20debit%20only%20for%20US/Canada`;
 
 export default function External(props: Props) {
   const {
@@ -80,7 +81,7 @@ export default function External(props: Props) {
     return (
       <>
         <img src={image} alt="Avatar" width="200px" />
-        <h3 style={{ marginTop: '30px' }}>CircleSub Tip</h3>
+        <h3 style={{ marginTop: '30px' }}>Solana Tip</h3>
         <div style={{ marginTop: '20px' }}>
           <form onSubmit={handleSubmit(onSubmitDonate)}>
             <input {...register('tip', { min: '0.0001', required: true })} type="text" placeholder="SOL Amount" style={{ borderRadius: '5px' }} />
@@ -127,6 +128,18 @@ export default function External(props: Props) {
           </div>
           <div style={{ marginTop: '10px' }}>
             After tipping please wait until the thanks alert in the Twitch chat.
+          </div>
+          <div style={{ marginTop: '30px' }}>
+            <iframe
+              title="transak"
+              height="650"
+              src={transakURL}
+              frameBorder="no"
+              allowFullScreen
+              style={{
+                display: 'block', width: '100%', maxHeight: '650px', maxWidth: '500px',
+              }}
+            />
           </div>
         </div>
       </>

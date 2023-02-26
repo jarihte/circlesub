@@ -47,6 +47,13 @@ interface TransferTransaction {
 }
 
 async function post(req: NextApiRequest, res: NextApiResponseWithSocket) {
+  const { headers } = req;
+  const { authorization } = headers;
+
+  if (authorization !== process.env.HELIUS_WEBHOOK_SECRET) {
+    return res.status(401).json({ error: 'access denied' });
+  }
+
   const { body } = req;
   const json : TransferTransaction[] = body;
   await fetch(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/socket`);
@@ -61,7 +68,7 @@ async function post(req: NextApiRequest, res: NextApiResponseWithSocket) {
     }
   }
 
-  res.send({ ok: true });
+  return res.status(200).json({ success: true });
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseWithSocket) {

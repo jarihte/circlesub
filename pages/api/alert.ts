@@ -2,7 +2,10 @@ import tmi from 'tmi.js';
 import axios from 'axios';
 import { getToken } from 'next-auth/jwt';
 import { NextApiRequest, NextApiResponse } from 'next/types';
+import { connect } from 'mongoose';
 import { UserModel } from '../../schemas/user';
+
+connect(process.env.MONGODB_URL as string);
 
 export default async function shows(req: NextApiRequest, res: NextApiResponse) {
   const secret = process.env.NEXTAUTH_SECRET;

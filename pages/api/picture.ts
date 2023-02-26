@@ -1,5 +1,8 @@
+import { connect } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import { UserModel } from '../../schemas/user';
+
+connect(process.env.MONGODB_URL as string);
 
 export default async function shows(req: NextApiRequest, res: NextApiResponse) {
   // get the user's name from the query string

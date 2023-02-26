@@ -1,8 +1,11 @@
 import { createTransfer } from '@solana/pay';
 import { Connection, PublicKey } from '@solana/web3.js';
 import BigNumber from 'bignumber.js';
+import { connect } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next/types';
 import { UserModel } from '../../schemas/user';
+
+connect(process.env.MONGODB_URL as string);
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   res.status(200).json({
