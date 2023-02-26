@@ -10,6 +10,8 @@ This project demonstrates the usage of:
 
 This project was created for the Solana Grizzython Hackathon in 2023
 
+This project is live at [https://circlesub.com](https://circlesub.com)
+
 ### Required ENV Vars:
 * NEXTAUTH_SECRET={your own uuid v4}
 * TWITCH_CLIENT_ID={Twitch Client ID}
