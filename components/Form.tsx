@@ -38,6 +38,7 @@ export default function External(props: Props) {
   const onSubmitDonate = async (data: FieldValues) => {
     try {
       const reference = new Keypair().publicKey.toBase58();
+      console.log('reference', reference);
       const qrLink = createQR(encodeURL({
         link: new URL(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/qr?tip=${data.tip}&name=${data.username}&reference=${reference}`),
       }));
