@@ -39,7 +39,7 @@ export default function External(props: Props) {
     try {
       const reference = new Keypair().publicKey.toBase58();
       const qrLink = createQR(encodeURL({
-        link: new URL(`https://${process.env.NEXT_PUBLIC_QR_URL}/api/qr?tip=${data.tip}&name=${data.username}&reference=${reference}`),
+        link: new URL(`https://stablethread.com/api/qr?amount=${data.tip}&address=${solAddress}&reference=${reference}`),
       }));
 
       const pngRaw = await qrLink.getRawData();
@@ -75,8 +75,8 @@ export default function External(props: Props) {
 
   useEffect(() => {
     fetchMyAPI();
-    fetch('/api/socket').finally(() => {
-      const socket = io({ path: '/api/socket' });
+    fetch('https://stablethread.com/api/socket').finally(() => {
+      const socket = io('https://stablethread.com', { path: '/api/socket' });
       setMsgSocket(socket);
     });
   }, [fetchMyAPI]);

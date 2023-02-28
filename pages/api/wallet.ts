@@ -1,6 +1,5 @@
 import { getToken } from 'next-auth/jwt';
 import { NextApiRequest, NextApiResponse } from 'next/types';
-import { Helius } from 'helius-sdk';
 import { connect } from 'mongoose';
 import { UserModel } from '../../schemas/user';
 
@@ -21,10 +20,6 @@ export default async function shows(req: NextApiRequest, res: NextApiResponse) {
       // update the user's SOL wallet address
       // eslint-disable-next-line max-len
       await UserModel().findOneAndUpdate({ name }, { sol_address: solAddress }).exec();
-
-      // add the SOL wallet address to the webhook
-      const helius = new Helius(process.env.HELIUS_API_KEY as string);
-      await helius.appendAddressesToWebhook(process.env.HELIUS_WEBHOOK_ID as string, [solAddress]);
 
       // return the SOL wallet address
       res.send({ sol_address: solAddress });
