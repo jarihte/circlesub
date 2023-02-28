@@ -37,6 +37,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.31.3",
     "react-markdown": "^8.0.3",
+    "react-spinners": "^0.13.8",
     "react-twitch-embed-video": "^3.0.3",
     "reactstrap": "^9.1.5",
     "socket.io": "^4.6.0",
