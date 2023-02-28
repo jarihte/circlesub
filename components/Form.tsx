@@ -8,6 +8,7 @@ import io, { Socket } from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { useSession } from 'next-auth/react';
 import { Keypair } from '@solana/web3.js';
+import qs from 'qs';
 
 type TxData = {
   accounts: string[];
@@ -17,7 +18,7 @@ type Props = {
   username: string;
 };
 
-const transakURL = `https://global.transak.com?apiKey=${process.env.NEXT_PUBLIC_TRANSAK}&cryptoCurrencyCode=SOL&network=solana&themeColor=9146FF&exchangeScreenTitle=Buy%20SOL%20-%20use%20debit%20only%20for%20US/Canada`;
+const transakURL = `https://global.transak.com?apiKey=${process.env.NEXT_PUBLIC_TRANSAK}&cryptoCurrencyCode=USDC&network=solana&themeColor=9146FF&exchangeScreenTitle=Buy%20SOL%20-%20use%20debit%20only%20for%20US/Canada`;
 
 export default function External(props: Props) {
   const {
@@ -38,8 +39,15 @@ export default function External(props: Props) {
   const onSubmitDonate = async (data: FieldValues) => {
     try {
       const reference = new Keypair().publicKey.toBase58();
+      const amount = data.tip;
+      const address = solAddress;
+      // transfer USDC to the user
+      const splToken = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+      const qString = qs.stringify({
+        reference, amount, address, splToken,
+      });
       const qrLink = createQR(encodeURL({
-        link: new URL(`https://stablethread.com/api/qr?amount=${data.tip}&address=${solAddress}&reference=${reference}`),
+        link: new URL(`https://stablethread.com/api/qr?${qString}`),
       }));
 
       const pngRaw = await qrLink.getRawData();
@@ -51,7 +59,7 @@ export default function External(props: Props) {
           if (txData.accounts.includes(reference)) {
             await fetch(`/api/alert?name=${username}&tip=${data.tip}`);
             const donor = (session?.user) ? session.user.name : 'visitor';
-            const msg = { message: `Thanks ${donor} for your tip of ${data.tip} SOL`, room: username };
+            const msg = { message: `Thanks ${donor} for your tip of $${data.tip}`, room: username };
             msgSocket.emit('alert', msg);
             setQR('');
             if (inputRef.current) {
@@ -81,7 +89,7 @@ export default function External(props: Props) {
     });
   }, [fetchMyAPI]);
 
-  const { ref, ...rest } = register('tip', { min: '0.0001', required: true });
+  const { ref, ...rest } = register('tip', { min: '0.01', required: true });
 
   if (image && solAddress) {
     return (
@@ -99,7 +107,7 @@ export default function External(props: Props) {
                 }
               }}
               type="text"
-              placeholder="SOL Amount"
+              placeholder="USDC Amount"
               style={{ borderRadius: '5px' }}
             />
             <input
@@ -111,7 +119,7 @@ export default function External(props: Props) {
               }}
             />
             <div style={{ color: 'red' }}>
-              { errors?.tip && 'SOL amount must be greater than 0.0001' }
+              { errors?.tip && 'USDC amount must be greater than 0.01' }
             </div>
             <input {...register('username')} value={username} type="hidden" />
           </form>

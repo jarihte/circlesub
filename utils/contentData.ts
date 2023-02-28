@@ -1,8 +1,8 @@
 const contentData = [
   {
-    title: 'Solana Tips',
+    title: 'Solana USDC Tips',
     description:
-      'CircleSub uses Solana - the fastest blockchain network with the lowest fees that instantly settles.',
+      'CircleSub transfers tips in Solana USDC - a stable coin to US dollar. Solana is the fastest blockchain network with the lowest fees that instantly settles.',
   },
   {
     title: 'No Chargebacks',
@@ -12,7 +12,7 @@ const contentData = [
   {
     title: 'Tip Alerts',
     description:
-      'Tippers get an automated personal shoutout in chat with the Solana (SOL) amount of the tip. Influencers get an OBS tip alert for their stream.',
+      'Tippers get an automated personal shoutout in chat with the US dollar amount of the tip. Influencers get an OBS tip alert for their stream.',
   },
   {
     title: 'Embedded Twitch',

@@ -66,7 +66,7 @@ export default async function shows(req: NextApiRequest, res: NextApiResponse) {
       channels: [`#${receiver}`],
     });
     await client.connect();
-    client.say(`#${receiver}`, `Thanks ${donor} for your tip of ${amount} SOL via CircleSub!`);
+    client.say(`#${receiver}`, `Thanks ${donor} for your tip of $${amount} via CircleSub!`);
     await client.disconnect();
   }
 
