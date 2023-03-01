@@ -95,7 +95,7 @@ export default function External(props: Props) {
     return (
       <>
         <img src={image} alt="Avatar" width="200px" />
-        <h3 style={{ marginTop: '30px' }}>Solana Tip</h3>
+        <h3 style={{ marginTop: '30px' }}>CircleSub Tip</h3>
         <div style={{ marginTop: '20px' }}>
           <form onSubmit={handleSubmit(onSubmitDonate)}>
             <input
