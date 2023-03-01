@@ -152,6 +152,13 @@ export default function External(props: Props) {
             Tips are final and not refundable.
           </div>
           <div style={{ marginTop: '10px' }}>
+            CircleSub uses
+            {' '}
+            <a href="https://stablethread.com" target="_blank" rel="noreferrer">StableThead</a>
+            {' '}
+            as the payment gateway.
+          </div>
+          <div style={{ marginTop: '10px' }}>
             After tipping please wait until the thanks alert in the Twitch chat.
           </div>
           <div style={{ marginTop: '30px' }}>
