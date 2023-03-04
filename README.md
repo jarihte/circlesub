@@ -6,7 +6,7 @@ This Next.js project is a Twitch Solana tipping app using Solana Pay QR codes.
 
 This project demonstrates the usage of:
 * Solana Pay QR Codes using the Solana token
-* StableThread transactions rather than using frontend polling
+* StableThread transactions rather than using frontend polling (original submission had polling)
 * Twitch Solana tipping integration
 
 This project was created for the [Solana Riptide Hackathon](https://solana.com/riptide)

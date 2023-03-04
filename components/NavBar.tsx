@@ -42,6 +42,11 @@ function NavBar() {
                   Home
                 </PageLink>
               </NavItem>
+              <NavItem style={{ paddingTop: '18px' }}>
+                <PageLink href="https://github.com/bevanhunt/circlesub" className="nav-link" testId="navbar-home" icon={null} tabIndex={undefined}>
+                  GitHub
+                </PageLink>
+              </NavItem>
               {status === 'authenticated' && session && (
                 <NavItem style={{ paddingTop: '18px' }}>
                   <PageLink href="/setup" className="nav-link" testId="navbar-external" icon={null} tabIndex={undefined}>
