@@ -68,6 +68,9 @@ export default function External(props: Props) {
             }
           }
         });
+        msgSocket.on('disconnect', () => {
+          msgSocket.connect();
+        });
       }
     } catch (error) {
       // eslint-disable-next-line no-console
