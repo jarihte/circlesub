@@ -40,13 +40,12 @@ export default function External(props: Props) {
     try {
       const reference = new Keypair().publicKey.toBase58();
       const amount = data.tip;
-      const to = solAddress;
+      const merchant = solAddress;
       // transfer USDC to the user
       const splToken = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
       const partner = '6otdmKAVQXrYFWjM1mueg61bFnTHARimH7jfGX4WxpgV';
-      const merchant = solAddress;
       const qString = qs.stringify({
-        reference, amount, to, splToken, partner, merchant,
+        reference, amount, merchant, splToken, partner,
       });
       const qrLink = createQR(encodeURL({
         link: new URL(`https://stablethread.com/api/qr?${qString}`),
