@@ -41,11 +41,13 @@ export default function External(props: Props) {
       const reference = new Keypair().publicKey.toBase58();
       const amount = data.tip;
       const merchant = solAddress;
-      // transfer USDC to the user
+      // USDC
       const splToken = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
+      // USDT
+      const settlement = 'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB';
       const partner = '6otdmKAVQXrYFWjM1mueg61bFnTHARimH7jfGX4WxpgV';
       const qString = qs.stringify({
-        reference, amount, merchant, splToken, partner,
+        reference, amount, merchant, splToken, settlement, partner,
       });
       const qrLink = createQR(encodeURL({
         link: new URL(`https://archpaid.com/api/qr?${qString}`),
