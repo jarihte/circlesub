@@ -43,10 +43,9 @@ export default function External(props: Props) {
       const merchant = solAddress;
       // transfer USDC to the user
       const splToken = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
-      const settlement = 'So11111111111111111111111111111111111111112';
       const partner = '6otdmKAVQXrYFWjM1mueg61bFnTHARimH7jfGX4WxpgV';
       const qString = qs.stringify({
-        reference, amount, merchant, splToken, settlement, partner,
+        reference, amount, merchant, splToken, partner,
       });
       const qrLink = createQR(encodeURL({
         link: new URL(`https://archpaid.com/api/qr?${qString}`),
