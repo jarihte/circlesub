@@ -48,7 +48,7 @@ export default function External(props: Props) {
         reference, amount, merchant, payment, settlement, partner,
       });
       const qrLink = createQR(encodeURL({
-        link: new URL(`https://archpaid.com/api/qr?${qString}`),
+        link: new URL(`https://stablethread.com/api/qr?${qString}`),
       }));
 
       const pngRaw = await qrLink.getRawData();
@@ -87,8 +87,8 @@ export default function External(props: Props) {
 
   useEffect(() => {
     fetchMyAPI();
-    fetch('https://archpaid.com/api/socket').finally(() => {
-      const socket = io('https://archpaid.com', { path: '/api/socket' });
+    fetch('https://stablethread.com/api/socket').finally(() => {
+      const socket = io('https://stablethread.com', { path: '/api/socket' });
       setMsgSocket(socket);
     });
   }, [fetchMyAPI]);
@@ -158,7 +158,7 @@ export default function External(props: Props) {
           <div style={{ marginTop: '10px' }}>
             CircleSub uses
             {' '}
-            <a href="https://archpaid.com" target="_blank" rel="noreferrer">ArchPaid</a>
+            <a href="https://stablethread.com" target="_blank" rel="noreferrer">StableThread</a>
             {' '}
             as the payment gateway.
           </div>
