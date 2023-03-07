@@ -42,9 +42,10 @@ export default function External(props: Props) {
       const amount = data.tip;
       const merchant = solAddress;
       const payment = 'USDC';
+      const settlement = 'USDC';
       const partner = '6otdmKAVQXrYFWjM1mueg61bFnTHARimH7jfGX4WxpgV';
       const qString = qs.stringify({
-        reference, amount, merchant, payment, partner,
+        reference, amount, merchant, payment, settlement, partner,
       });
       const qrLink = createQR(encodeURL({
         link: new URL(`https://archpaid.com/api/qr?${qString}`),
