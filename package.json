@@ -32,6 +32,7 @@
     "mongoose": "^6.9.1",
     "next": "^13.1.6",
     "next-auth": "^4.19.2",
+    "nextjs-cors": "^2.1.2",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-animated-text-content": "^1.0.1",

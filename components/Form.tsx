@@ -29,7 +29,8 @@ export default function External(props: Props) {
 
   const { data: session } = useSession();
 
-  const [msgSocket, setMsgSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
+  const [stMsgSocket, setStMsgSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
+  const [csMsgSocket, setCsMsgSocket] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>();
 
   const [image, setImage] = useState('');
   const [qr, setQR] = useState('');
@@ -60,23 +61,26 @@ export default function External(props: Props) {
 
       const pngRaw = await qrLink.getRawData();
 
-      if (pngRaw && msgSocket) {
+      if (pngRaw && stMsgSocket && csMsgSocket) {
         const png = URL.createObjectURL(pngRaw);
         setQR(png);
-        msgSocket.on('transfer', async (txData: TxData) => {
+        stMsgSocket.on('transfer', async (txData: TxData) => {
           if (txData.accounts.includes(reference)) {
             await fetch(`/api/alert?name=${username}&tip=${data.tip}`);
             const donor = (session?.user) ? session.user.name : 'visitor';
             const msg = { message: `Thanks ${donor} for your tip of $${data.tip}`, room: username };
-            msgSocket.emit('alert', msg);
+            csMsgSocket.emit('alert', msg);
             setQR('');
             if (inputRef.current) {
               inputRef.current.value = '';
             }
           }
         });
-        msgSocket.on('disconnect', () => {
-          msgSocket.connect();
+        stMsgSocket.on('disconnect', () => {
+          stMsgSocket.connect();
+        });
+        csMsgSocket.on('disconnect', () => {
+          csMsgSocket.connect();
         });
       }
     } catch (error) {
@@ -96,7 +100,11 @@ export default function External(props: Props) {
     fetchMyAPI();
     fetch('https://stablethread.com/api/socket').finally(() => {
       const socket = io('https://stablethread.com', { path: '/api/socket' });
-      setMsgSocket(socket);
+      setStMsgSocket(socket);
+    });
+    fetch('/api/socket').finally(() => {
+      const socket = io({ path: '/api/socket' });
+      setCsMsgSocket(socket);
     });
   }, [fetchMyAPI]);
 
