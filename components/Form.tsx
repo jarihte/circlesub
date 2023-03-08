@@ -43,12 +43,19 @@ export default function External(props: Props) {
       const merchant = solAddress;
       const payment = 'USDC';
       const settlement = 'USDC';
+      const fiat = 'USD';
       const partner = '6otdmKAVQXrYFWjM1mueg61bFnTHARimH7jfGX4WxpgV';
       const qString = qs.stringify({
-        reference, amount, merchant, payment, settlement, partner,
+        reference,
+        amount,
+        merchant,
+        payment,
+        settlement,
+        fiat,
+        partner,
       });
       const qrLink = createQR(encodeURL({
-        link: new URL(`https://stablethread.com/api/qr?${qString}`),
+        link: new URL(`https:///stablethread.com/api/qr?${qString}`),
       }));
 
       const pngRaw = await qrLink.getRawData();
@@ -111,7 +118,7 @@ export default function External(props: Props) {
                 }
               }}
               type="text"
-              placeholder="USDC Amount"
+              placeholder="USD Amount"
               style={{ borderRadius: '5px' }}
             />
             <input
@@ -123,7 +130,7 @@ export default function External(props: Props) {
               }}
             />
             <div style={{ color: 'red' }}>
-              { errors?.tip && 'USDC amount must be greater than 0.01' }
+              { errors?.tip && 'USD amount must be greater than 0.01' }
             </div>
             <input {...register('username')} value={username} type="hidden" />
           </form>
@@ -168,7 +175,7 @@ export default function External(props: Props) {
           <div style={{ marginTop: '30px' }}>
             <iframe
               title="transak"
-              height="650"
+              height="650px"
               src={transakURL}
               allowFullScreen
               style={{
