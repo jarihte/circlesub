@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'reactstrap';
+import Link from 'next/link';
 import Hero from '../components/Hero';
 import Content from '../components/Content';
 import { NextPageWithLayout } from './_app';
@@ -12,15 +14,10 @@ const component : NextPageWithLayout = function Page() {
       <Hero />
       <hr />
       <Content />
-      <div className="text-center">
-        <iframe
-          title="meld"
-          height="800px"
-          src={meldURL}
-          style={{
-            width: '100%', maxHeight: '800px', maxWidth: '500px',
-          }}
-        />
+      <div className="text-center" style={{ marginBottom: '100px' }}>
+        <Link href={meldURL} target="_blank">
+          <Button className="rounded" style={{ width: '30%', height: '100px', fontSize: '1.5rem' }}>Buy Solana USDC</Button>
+        </Link>
       </div>
     </>
   );

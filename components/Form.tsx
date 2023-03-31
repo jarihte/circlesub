@@ -9,6 +9,8 @@ import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { useSession } from 'next-auth/react';
 import { Keypair } from '@solana/web3.js';
 import qs from 'qs';
+import Link from 'next/link';
+import { Button } from 'reactstrap';
 
 type TxData = {
   accounts: string[];
@@ -181,15 +183,11 @@ export default function External(props: Props) {
             After tipping please wait until the thanks alert in the Twitch chat.
           </div>
           <div style={{ marginTop: '30px' }}>
-            <iframe
-              title="meld"
-              height="800px"
-              src={meldURL}
-              allowFullScreen
-              style={{
-                display: 'block', width: '100%', maxHeight: '800px', maxWidth: '500px',
-              }}
-            />
+            <div className="text-left" style={{ marginBottom: '100px' }}>
+              <Link href={meldURL} target="_blank">
+                <Button className="rounded" style={{ width: '50%', height: '50px', fontSize: '1.5rem' }}>Buy Solana USDC</Button>
+              </Link>
+            </div>
           </div>
         </div>
       </>
