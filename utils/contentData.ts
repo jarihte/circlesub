@@ -1,8 +1,8 @@
 const contentData = [
   {
-    title: 'Solana USDC Tips',
+    title: 'Solana Stablecoin Tips',
     description:
-      'CircleSub transfers tips in Solana USDC - a stable coin to US dollar. Solana is the fastest blockchain network with the lowest fees that instantly settles.',
+      'CircleSub transfers tips in Solana USDC or USDT - stablecoins to the US dollar. Solana is the fastest blockchain network with the lowest fees that instantly settles.',
   },
   {
     title: 'No Chargebacks',

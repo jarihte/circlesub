@@ -20,7 +20,8 @@ type Props = {
   username: string;
 };
 
-const meldURL = 'https://fluidmoney.xyz/?publicKey=WGuE3CWry1j4o3R9t48HYN:3b7Vi66ub2NFjbAYH3WsLzQMZ2Vp8gDjQQDv&destinationCurrencyCodeLocked=USDC_SOLANA';
+const meldUSDCURL = 'https://fluidmoney.xyz/?publicKey=WGuE3CWry1j4o3R9t48HYN:3b7Vi66ub2NFjbAYH3WsLzQMZ2Vp8gDjQQDv&destinationCurrencyCodeLocked=USDC_SOLANA';
+const meldUSDTURL = 'https://fluidmoney.xyz/?publicKey=WGuE3CWry1j4o3R9t48HYN:3b7Vi66ub2NFjbAYH3WsLzQMZ2Vp8gDjQQDv&destinationCurrencyCodeLocked=USDT_SOLANA';
 
 export default function External(props: Props) {
   const {
@@ -44,8 +45,8 @@ export default function External(props: Props) {
       const reference = new Keypair().publicKey.toBase58();
       const amount = data.tip;
       const merchant = solAddress;
-      const payment = 'USDC';
-      const settlement = 'USDC';
+      const payment = data.token;
+      const settlement = data.token;
       const fiat = 'USD';
       const partner = '6otdmKAVQXrYFWjM1mueg61bFnTHARimH7jfGX4WxpgV';
       const qString = qs.stringify({
@@ -111,6 +112,7 @@ export default function External(props: Props) {
   }, [fetchMyAPI]);
 
   const { ref, ...rest } = register('tip', { min: '0.01', required: true });
+  const { ref: ref2, ...rest2 } = register('token', { required: true });
 
   if (image && solAddress) {
     return (
@@ -129,8 +131,20 @@ export default function External(props: Props) {
               }}
               type="text"
               placeholder="USD Amount"
-              style={{ borderRadius: '5px' }}
+              style={{ borderRadius: '5px', height: '30px', border: '2px solid #9146FF' }}
             />
+            <select
+              {...rest2}
+              ref={(e) => {
+                ref2(e);
+              }}
+              style={{
+                borderRadius: '5px', height: '30px', marginLeft: '5px', border: '2px solid #9146FF',
+              }}
+            >
+              <option value="USDC">USDC</option>
+              <option value="USDT">USDT</option>
+            </select>
             <input
               type="submit"
               height="20px"
@@ -183,9 +197,14 @@ export default function External(props: Props) {
             After tipping please wait until the thanks alert in the Twitch chat.
           </div>
           <div style={{ marginTop: '30px' }}>
-            <div className="text-left" style={{ marginBottom: '100px' }}>
-              <Link href={meldURL} target="_blank">
+            <div className="text-left" style={{ marginBottom: '30px' }}>
+              <Link href={meldUSDCURL} target="_blank">
                 <Button className="rounded" style={{ width: '50%', height: '50px', fontSize: '1.5rem' }}>Buy Solana USDC</Button>
+              </Link>
+            </div>
+            <div className="text-left">
+              <Link href={meldUSDTURL} target="_blank">
+                <Button className="rounded" style={{ width: '50%', height: '50px', fontSize: '1.5rem' }}>Buy Solana USDT</Button>
               </Link>
             </div>
           </div>
